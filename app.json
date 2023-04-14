@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "supabase_ai",
-    "slug": "supabase_ai",
+    "name": "AI Generation",
+    "slug": "AI_Generation",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/openAI.jpg"
     }
   }
 }
