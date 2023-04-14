@@ -52,27 +52,24 @@ export default function App() {
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [hover, setHover] = useState("");
   const [isActive, setActive] = useState(false);
+  const [userOnly, setUserOnly] = useState(false);
+  const [uid, setUid] = useState("");
   const [input, setInput] = useState("");
   const [popup, setPopup] = useState("");
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     await fetchPosts(setPosts);
-  //     setFilteredPosts(posts);
-  //   }
-  //   fetchData();
-  // }, []);
-
   async function fetchData() {
     await fetchPosts(setPosts);
-    const filtered = input
+    const filteredInput = input
       ? posts.filter(
           (item) =>
             item.prompt.toLowerCase().includes(input.toLowerCase()) ||
             item.prompt.toLowerCase().includes(input.toLowerCase())
         )
       : posts;
-    setFilteredPosts(filtered);
+    const filteredUser = userOnly
+      ? filteredInput.filter((item) => item.uid == uid)
+      : filteredInput;
+    setFilteredPosts(filteredUser);
   }
   fetchData();
 
@@ -136,6 +133,19 @@ export default function App() {
       textAlign: "center",
       justifyContent: "center",
     },
+    filterButton: {
+      height: 50,
+      width: 240,
+      padding: 5,
+      backgroundColor: "#a1a1a1" + "33",
+      borderWidth: 1,
+      borderColor: "#5e5e5e",
+      borderRadius: 15,
+      overflow: "hidden",
+      alignContent: "center",
+      textAlign: "center",
+      justifyContent: "center",
+    },
     popupButton: {
       height: 40,
       width: 80,
@@ -184,6 +194,8 @@ export default function App() {
       <Header
         styles={styles}
         setActive={setActive}
+        setUserOnly={setUserOnly}
+        setUid={setUid}
         setInput={setInput}
         input={input}
         popup={popup}
