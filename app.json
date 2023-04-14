@@ -24,7 +24,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/openAI.jpg"
+      "favicon": "./assets/openAI.png"
     }
   }
 }

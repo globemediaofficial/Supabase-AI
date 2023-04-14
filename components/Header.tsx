@@ -7,18 +7,36 @@ import {
 } from "react-native";
 import SizedBox from "./SizedBox";
 import Icon from "@expo/vector-icons/FontAwesome5";
-import Post from "../objects/Post";
+import SwitchWithIcons from "react-native-switch-with-icons";
+import { User } from "@supabase/supabase-js";
+import { useState } from "react";
+import supabase from "../Supabase";
 
 const Header = (props: {
   styles: any;
   setActive: any;
+  setUserOnly: any;
+  setUid: any;
   setInput: any;
   input: any;
-  // setFilter: any;
-  // posts: Post[];
   popup: any;
   setPopup: any;
 }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [filterUser, setFilterUser] = useState(false);
+
+  const fetchUser = async () => {
+    const value = await (await supabase.auth.getUser()).data.user;
+    setUser(value);
+    props.setUid(value?.id);
+  };
+  fetchUser();
+
+  const onValueChange = (value: boolean) => {
+    setFilterUser(value);
+    props.setUserOnly(value);
+  };
+
   return (
     <SafeAreaView style={props.styles.top}>
       <View style={props.styles.header}>
@@ -46,26 +64,51 @@ const Header = (props: {
           }}
         ></TextInput>
       </View>
-      <TouchableOpacity
-        style={props.styles.signInButton}
-        onPress={() => {
-          props.setPopup("in");
-        }}
-      >
-        <Text style={{ color: "#5e5e5e", fontWeight: "500", fontSize: 18 }}>
-          Sign In
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={props.styles.signUpButton}
-        onPress={() => {
-          props.setPopup("up");
-        }}
-      >
-        <Text style={{ color: "#5e5e5e", fontWeight: "500", fontSize: 18 }}>
-          Sign Up
-        </Text>
-      </TouchableOpacity>
+      {!user ? (
+        <TouchableOpacity
+          style={props.styles.signInButton}
+          onPress={() => {
+            props.setPopup("in");
+          }}
+        >
+          <Text style={{ color: "#5e5e5e", fontWeight: "500", fontSize: 18 }}>
+            Sign In
+          </Text>
+        </TouchableOpacity>
+      ) : null}
+      {!user ? (
+        <TouchableOpacity
+          style={props.styles.signUpButton}
+          onPress={() => {
+            props.setPopup("up");
+          }}
+        >
+          <Text style={{ color: "#5e5e5e", fontWeight: "500", fontSize: 18 }}>
+            Sign Up
+          </Text>
+        </TouchableOpacity>
+      ) : null}
+      {user ? (
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <Text
+            style={{
+              color: "#a999e2",
+              fontWeight: "500",
+              fontSize: 15,
+              padding: 10,
+            }}
+          >
+            Only Show Your Posts
+          </Text>
+          <SwitchWithIcons value={filterUser} onValueChange={onValueChange} />
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 };
