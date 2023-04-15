@@ -42,7 +42,8 @@ const AppStyle = () => {
 };
 
 const AuthStyle = () => {
-  const colorScheme = useColorScheme() || Appearance.getColorScheme();
+  const colorScheme =
+    useColorScheme() || Appearance.getColorScheme() || "light";
   const isDarkMode = colorScheme === "dark";
 
   const mainBackgroundColor = isDarkMode ? "#1c1c1c" : "#a1a1a1" + "50";
@@ -121,8 +122,9 @@ const AuthStyle = () => {
   return styles;
 };
 
-const HeaderStyle = (active: boolean) => {
-  const colorScheme = useColorScheme() || "light";
+const HeaderStyle = (active: boolean, filterUser: boolean) => {
+  const colorScheme =
+    useColorScheme() || Appearance.getColorScheme() || "light";
   const isDarkMode = colorScheme === "dark";
 
   const topBackgroundColor = isDarkMode ? "#1c1c1c" : "#ffffff";
@@ -156,7 +158,7 @@ const HeaderStyle = (active: boolean) => {
     ? "#a1a1a1" + "33"
     : "#ffffff" + "33";
   const buttonTextTextColor = isDarkMode ? "#ffffff" : "#000000";
-  const filterTextTextColor = active ? "#a999e2" : "#5e5e5e";
+  const filterTextTextColor = filterUser ? "#a999e2" : "#5e5e5e";
 
   const styles = StyleSheet.create({
     top: {
@@ -244,7 +246,8 @@ const HeaderStyle = (active: boolean) => {
 };
 
 const GenerateViewStyle = () => {
-  const colorScheme = useColorScheme();
+  const colorScheme =
+    useColorScheme() || Appearance.getColorScheme() || "light";
   const isDarkMode = colorScheme === "dark";
 
   const backgroundColor = isDarkMode ? "#5e5e5e" : "#5e5e5e";

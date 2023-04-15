@@ -25,7 +25,7 @@ const Header = (props: {
   const [filterUser, setFilterUser] = useState(false);
   const [isActive, setActive] = useState(false);
 
-  const styles = Styles.HeaderStyle(isActive);
+  const styles = Styles.HeaderStyle(isActive, filterUser);
 
   const fetchUser = async () => {
     const value = (await supabase.auth.getUser()).data.user;
@@ -83,8 +83,14 @@ const Header = (props: {
             justifyContent: "space-evenly",
           }}
         >
-          <Text style={styles.filterText}>Only Show Your Posts</Text>
-          <SwitchWithIcons value={filterUser} onValueChange={onValueChange} />
+          <TouchableOpacity
+            onPress={() => {
+              onValueChange(!filterUser);
+            }}
+          >
+            <Text style={styles.filterText}>Only Show Your Posts</Text>
+          </TouchableOpacity>
+          {/* <SwitchWithIcons value={filterUser} onValueChange={onValueChange} /> */}
         </View>
       ) : null}
     </SafeAreaView>
