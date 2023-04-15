@@ -2,8 +2,8 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "lang": "en",
-  "name": "supabase_ai",
-  "short_name": "supabase_ai",
+  "name": "AI Generation",
+  "short_name": "AI Generation",
   "start_url": "/?utm_source=web_app_manifest",
   "orientation": "portrait"
 }
