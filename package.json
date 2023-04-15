@@ -9,7 +9,6 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@expo/webpack-config": "^18.0.1",
     "@supabase/supabase-js": "^2.20.0",
     "expo": "~48.0.10",
     "expo-status-bar": "~1.4.4",
@@ -19,7 +18,8 @@
     "react-dom": "18.2.0",
     "react-native": "0.71.6",
     "react-native-switch-with-icons": "^3.0.1",
-    "react-native-web": "~0.18.10"
+    "react-native-web": "~0.18.10",
+    "@expo/webpack-config": "^18.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
