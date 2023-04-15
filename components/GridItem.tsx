@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import Icon from "@expo/vector-icons/FontAwesome5";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import Post from "../objects/Post";
+import Styles from "../Styles";
 
 const GridItem = (props: { post: Post; hover: any }) => {
   var hover = props.hover == props.post.imageUrl;
+
+  const styles = Styles.GridItemStyle(hover);
 
   return (
     <View
@@ -12,15 +14,7 @@ const GridItem = (props: { post: Post; hover: any }) => {
         borderRadius: 15,
       }}
     >
-      <View
-        style={{
-          borderRadius: 15,
-          shadowColor: "#5e5e5e",
-          shadowOffset: { width: 0, height: 3 },
-          shadowOpacity: 0.5,
-          shadowRadius: 5,
-        }}
-      >
+      <View style={styles.shadow}>
         <Image
           style={{
             width: 200,
@@ -32,18 +26,7 @@ const GridItem = (props: { post: Post; hover: any }) => {
           source={{ uri: props.post.imageUrl }}
         />
         {hover && (
-          <TouchableOpacity
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              backgroundColor: hover ? "#a1a1a1" + "80" : undefined,
-              borderRadius: 15,
-              overflow: "hidden",
-              alignContent: "center",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {/* <Icon name={"download"} size={25} /> */}
+          <TouchableOpacity style={styles.opacity}>
             <Text style={{ textAlign: "center", fontWeight: "700" }}>
               "{props.post.prompt}"
             </Text>

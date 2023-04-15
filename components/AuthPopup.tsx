@@ -1,4 +1,5 @@
 import { TouchableOpacity, View, Text, TextInput } from "react-native";
+import Styles from "../Styles";
 import Icon from "@expo/vector-icons/FontAwesome5";
 import SizedBox from "./SizedBox";
 import { useState } from "react";
@@ -22,30 +23,15 @@ const authenticate = async (
   }
 };
 
-const AuthPopup = (props: { setPopup: any; popup: any; styles: any }) => {
+const AuthPopup = (props: { setPopup: any; popup: any }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const AuthStyle = Styles.AuthStyle();
+
   return (
-    <View
-      style={{
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#a1a1a1" + "50",
-        position: "absolute",
-        alignContent: "center",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <View
-        style={{
-          height: "50%",
-          width: "50%",
-          backgroundColor: "#1c1c1c",
-          borderRadius: 15,
-        }}
-      >
+    <View style={AuthStyle.main}>
+      <View style={AuthStyle.background}>
         <View
           style={{
             flexDirection: "row",
@@ -60,33 +46,14 @@ const AuthPopup = (props: { setPopup: any; popup: any; styles: any }) => {
               name={"times"}
               size={25}
               style={{ paddingLeft: 10, paddingTop: 10, paddingRight: 80 }}
-              color={"#a1a1a1"}
+              color={AuthStyle.icon.color}
             />
           </TouchableOpacity>
         </View>
-        <Text
-          style={{
-            height: "100%",
-            width: "100%",
-            paddingTop: 10,
-            textAlign: "center",
-            textAlignVertical: "center",
-            color: "#a999e2",
-            fontSize: 25,
-          }}
-        >
+        <Text style={AuthStyle.title}>
           Welcome{props.popup == "in" ? " Back" : ""}!
         </Text>
-        <Text
-          style={{
-            height: "100%",
-            width: "100%",
-            textAlign: "center",
-            textAlignVertical: "center",
-            color: "#5e5e5e",
-            fontSize: 15,
-          }}
-        >
+        <Text style={AuthStyle.subtitle}>
           By signing {props.popup} you can keep track of your designs.
         </Text>
         <View style={{ alignItems: "center" }}>
@@ -96,15 +63,7 @@ const AuthPopup = (props: { setPopup: any; popup: any; styles: any }) => {
             onChangeText={(text) => {
               setEmail(text);
             }}
-            style={{
-              height: 50,
-              width: "70%",
-              paddingLeft: 10,
-              borderRadius: 15,
-              borderWidth: 1,
-              borderColor: "#a1a1a1",
-              color: "#a1a1a1",
-            }}
+            style={AuthStyle.input}
           ></TextInput>
           <SizedBox vertical={5} />
           <TextInput
@@ -113,15 +72,7 @@ const AuthPopup = (props: { setPopup: any; popup: any; styles: any }) => {
             onChangeText={(input) => {
               setPassword(input);
             }}
-            style={{
-              height: 50,
-              width: "70%",
-              paddingLeft: 10,
-              borderRadius: 15,
-              borderWidth: 1,
-              borderColor: "#a1a1a1",
-              color: "#a1a1a1",
-            }}
+            style={AuthStyle.input}
           ></TextInput>
           <SizedBox vertical={5} />
           <View style={{ paddingTop: 5, paddingRight: 5 }}>
@@ -135,9 +86,7 @@ const AuthPopup = (props: { setPopup: any; popup: any; styles: any }) => {
                 }
               }}
             >
-              <Text
-                style={{ color: "#a1a1a1", fontWeight: "500", fontSize: 15 }}
-              >
+              <Text style={AuthStyle.switch}>
                 {props.popup == "in"
                   ? "New? Create an account."
                   : "Already have an account? Sign In."}
@@ -146,15 +95,13 @@ const AuthPopup = (props: { setPopup: any; popup: any; styles: any }) => {
           </View>
           <SizedBox vertical={10} />
           <TouchableOpacity
-            style={props.styles.signInButton}
+            style={AuthStyle.submitButton}
             onPress={() => {
               authenticate(email, password, props.popup == "up");
               props.setPopup("");
             }}
           >
-            <Text style={{ color: "#5e5e5e", fontWeight: "500", fontSize: 15 }}>
-              Submit
-            </Text>
+            <Text style={AuthStyle.submitText}>Submit</Text>
           </TouchableOpacity>
           <SizedBox vertical={15} />
         </View>

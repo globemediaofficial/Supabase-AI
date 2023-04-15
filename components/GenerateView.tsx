@@ -7,11 +7,10 @@ import {
 } from "react-native";
 import Icon from "@expo/vector-icons/FontAwesome5";
 import { ActivityIndicator } from "react-native";
-const { Configuration, OpenAIApi } = require("openai");
 import SizedBox from "./SizedBox";
 import { useEffect, useState } from "react";
 import supabase from "../Supabase";
-import Post from "../objects/Post";
+import Styles from "../Styles";
 
 const generateImage = async (text: any) => {
   try {
@@ -34,10 +33,12 @@ const generateImage = async (text: any) => {
   }
 };
 
-const GenerateView = (props: { styles: any; updateData: any }) => {
+const GenerateView = (props: { updateData: any }) => {
   const [prompt, setPrompt] = useState("");
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const styles = Styles.GenerateViewStyle();
 
   useEffect(() => {
     console.log(url);
@@ -52,16 +53,7 @@ const GenerateView = (props: { styles: any; updateData: any }) => {
         alignItems: "center",
       }}
     >
-      <SafeAreaView
-        style={{
-          width: "90%",
-          aspectRatio: 1,
-          borderRadius: 15,
-          backgroundColor: "#a1a1a1" + "33",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <SafeAreaView style={styles.image}>
         {!loading && !url && (
           <Icon name={"image"} size={200} color={"#1c1c1c"} />
         )}
@@ -81,29 +73,18 @@ const GenerateView = (props: { styles: any; updateData: any }) => {
       </SafeAreaView>
       <SizedBox vertical={10} />
       <TextInput
-        style={{
-          height: 150,
-          width: "90%",
-          padding: 15,
-          alignItems: "center",
-          borderWidth: 1,
-          borderRadius: 15,
-          borderColor: "#a1a1a1" + "33",
-          fontSize: 18,
-          color: "#a1a1a1",
-        }}
+        style={styles.input}
         onChangeText={(text) => {
           setPrompt(text);
         }}
         clearTextOnFocus={true}
-        // onSubmitEditing={() => generatedUrl(setUrl, setLoading, prompt)}
         autoCapitalize={"sentences"}
         placeholder={"Enter a prompt..."}
         multiline={true}
       />
       <SizedBox vertical={10} />
       <TouchableOpacity
-        style={props.styles.generateButton}
+        style={styles.generateButton}
         onPress={async () => {
           setLoading(true);
           const url = await generateImage(prompt);
@@ -141,9 +122,7 @@ const GenerateView = (props: { styles: any; updateData: any }) => {
           setLoading(false);
         }}
       >
-        <Text style={{ color: "#5e5e5e", fontWeight: "500", fontSize: 15 }}>
-          Generate Image
-        </Text>
+        <Text style={styles.buttonText}>Generate Image</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
