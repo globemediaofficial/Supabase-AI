@@ -140,10 +140,10 @@ const HeaderStyle = (active: boolean) => {
   const textInputBorderColor = active
     ? isDarkMode
       ? "#a999e2"
-      : "#a1a1a1"
+      : "#000000"
     : isDarkMode
-    ? "#ffffff"
-    : "#000000";
+    ? "#a1a1a1"
+    : "#a1a1a1";
   const signInButtonBackgroundColor = active
     ? isDarkMode
       ? "#a999e2"
